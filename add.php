@@ -37,7 +37,7 @@
         }
 
         if(array_filter($errors)) {
-            echo 'Error in the form';
+            // echo 'Error in the form';
         } else {
             $title = mysqli_real_escape_string($connect, $_POST['title']);
             $mangaka = mysqli_real_escape_string($connect, $_POST['mangaka']);
