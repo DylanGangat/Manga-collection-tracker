@@ -18,7 +18,7 @@ if(isset($_POST['delete'])) {
 // Write query for all pizzas
 
 // $sql = 'SELECT * FROM pizzas';
-$sql = 'SELECT title, mangaka, volume, id FROM manga ORDER BY created_at';
+$sql = 'SELECT title, mangaka, volume, importance, id FROM manga ORDER BY created_at';
 
 // Make query & get results
 $result = mysqli_query($connect, $sql);
@@ -27,13 +27,14 @@ $result = mysqli_query($connect, $sql);
 // Fetch the resulting rows as an array
 $mangas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-print_r($mangas);
+// print_r($mangas);
 
 // Free result from memory
 mysqli_free_result($result);
 
 // Close connection
 mysqli_close($connect);
+
 
 ?>
 
@@ -43,16 +44,18 @@ mysqli_close($connect);
 
 <section>
     <div class="container">
-        <h1>My Collection</h1>
-        <div>
+        <h1>My Wishlist</h1>
+        <div class="manga-grid">
             <?php foreach($mangas as $manga) { ?> 
-                <div>
-                    <h3><?php echo $manga['title']?></h3>
-                    <p><?php echo 'volume: ' . htmlspecialchars($manga['volume']); ?></p>
-                    <p><?php echo htmlspecialchars($manga['mangaka']); ?></p>
+                <div class="manga-card flow-content">
+                    <!-- <img src="" alt="cover of the manga" data-manga-image> -->
+                    <h3 class="title" data-manga-title><?php echo $manga['title']; ?></h3>
+                    <p class="volume"><?php echo 'Volume: ' . htmlspecialchars($manga['volume']); ?></p>
+                    <p class="mangaka"><?php echo 'Mangaka: ' . htmlspecialchars($manga['mangaka']); ?></p>
+                    <p class="importance"><?php echo 'Importance: ' . htmlspecialchars($manga['importance']); ?></p>
                     <form action="index.php" method="POST">
                         <input type="hidden" name="id_to_delete" value="<?php echo htmlspecialchars($manga['id']); ?>">
-                        <input type="submit" name="delete" value="delete">
+                        <input type="submit" class="delete-btn" name="delete" value="delete">
                     </form>
                 </div>
             

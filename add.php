@@ -42,8 +42,9 @@
             $title = mysqli_real_escape_string($connect, $_POST['title']);
             $mangaka = mysqli_real_escape_string($connect, $_POST['mangaka']);
             $volume = mysqli_real_escape_string($connect, $_POST['volume']);
+            $importance = mysqli_real_escape_string($connect, $_POST['importance']);
 
-            $sql = "INSERT INTO manga(title, mangaka, volume) VALUES('$title', '$mangaka', '$volume')";
+            $sql = "INSERT INTO manga(title, mangaka, volume, importance) VALUES('$title', '$mangaka', '$volume', '$importance')";
 
             if(mysqli_query($connect, $sql)) {
                 // success
@@ -65,37 +66,55 @@
 <html lang="en">
 <?php include('templates/header.php'); ?>
 
-<section>
+<section class="container add">
     <h1>Add a Manga Volume</h1>
 
-    <form action="add.php" method="POST">
+    <form class="add-form flow-content" action="add.php" method="POST">
 
         <!-- Title -->
 
-        <div>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" value="<?php echo $title; ?>">
-            <div><?php echo $errors['title']; ?></div>
+        <div class="form-input">
+            <div class="form-input-info">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="<?php echo $title; ?>">
+            </div>
+            <div class="error-text"><?php echo $errors['title']; ?></div>
         </div>
 
         <!-- Mangaka -->
 
-        <div>
-            <label for="mangaka">Mangaka</label>
-            <input type="text" name="mangaka" id="mangaka" value="<?php echo $mangaka; ?>">
-            <div><?php echo $errors['mangaka']; ?></div>
+        <div class="form-input">
+            <div class="form-input-info">
+                <label for="mangaka">Mangaka</label>
+                <input type="text" name="mangaka" id="mangaka" value="<?php echo $mangaka; ?>">
+            </div>
+            <div class="error-text"><?php echo $errors['mangaka']; ?></div>
         </div>
 
     
         <!-- Volume -->
 
-        <div>
-            <label for="volume">Volume</label>
-            <input type="number" name="volume" id="volume" value="<?php echo $volume; ?>">
-            <div><?php echo $errors['volume']; ?></div>
+        <div class="form-input">
+            <div class="form-input-info">
+                <label for="volume">Volume</label>
+                <input type="number" name="volume" id="volume" value="<?php echo $volume; ?>">
+            </div>
+            <div class="error-text"><?php echo $errors['volume']; ?></div>
         </div>
 
-        <input type="submit" name="submit" value="Submit">
+        <!-- Importance -->
+        <div class="form-input">
+            <div class="form-input-info">
+                <label for="importance">Importance</label>
+                <select name="importance" id="importance">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+        </div>
+
+        <input class="submit-btn" type="submit" name="submit" value="Submit">
     </form>
 </section>
 
